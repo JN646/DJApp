@@ -128,7 +128,7 @@ while True:
            app.stop()
         except socket.error as e:
            print(str(e))
-           
+
     # app menu bar
     fileMenus = ["Close"]
     helpMenus = ["About"]
@@ -140,7 +140,7 @@ while True:
 
     # add toolbar with icons
     app.addToolbar(tools, tbFunc, findIcon=True)
-    
+
     # add & configure widgets - widgets get a name, to help referencing them later
     app.addLabel("title", "DJ Request Server")
     app.setLabelBg("title", "blue")

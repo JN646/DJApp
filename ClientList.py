@@ -54,7 +54,7 @@ def Requestpress(button):
                 #Add code to send the name of the selected item to the server.
                 print(app.selectListItem("list", items[0], callFunction=True))
 
-# genre buttons            
+# genre buttons
 def pressGenre(button):
     if button == "Pop":
         genre = "POP"
@@ -112,7 +112,7 @@ def closeConn():
         s.close()
         app.stop()
     except socket.error as e:
-        print(str(e))        
+        print(str(e))
 
 # refresh connection
 def refreshConn():
