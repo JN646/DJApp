@@ -51,6 +51,7 @@ try:
     print("Waiting for client connection...")
     print("")
     print("Host: " + str(host) + " Port: " + str(port))
+    print("")
 
 #Catch error
 except socket.error as e:
@@ -68,7 +69,7 @@ def threaded_client(conn):
         data = conn.recv(2048)
         reply = 'Server Output: '+data.decode('utf-8')
         app.addListItem("list", data.decode('utf-8'))
-        print(str(datetime.now().strftime("%H:%M:%S"))+' :  '+data.decode('utf-8'))
+        print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" R "+"-> "+data.decode('utf-8'))
         if not data:
             break
         conn.sendall(str.encode(reply))
@@ -100,7 +101,7 @@ while True:
             items = app.getListBox("list")
             if len(items)> 0:
                 app.removeListItem("list", items[0])
-                print("Request Removed")
+                print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" I "+"-> "+"Request Deleted")
 
     def mnuPress(button):
        if button == "Close":

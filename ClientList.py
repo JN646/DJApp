@@ -1,9 +1,9 @@
 # import the library
-from appJar import gui
 import socket
 import sys
 import time
 import webbrowser
+from appJar import gui
 
 #Define Connection
 host = '127.0.0.1'
