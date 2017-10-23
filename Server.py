@@ -55,7 +55,11 @@ except socket.error as e:
 s.listen(5)
 
 #Start threaded client
+
+# TELNET Connection
 def threaded_client(conn):
+
+    # beware of Windows TELNET bug (line breaks)
     conn.send(str.encode('Welcome to DJ Request System, type your request\n'))
 
     #Receive data
@@ -64,6 +68,8 @@ def threaded_client(conn):
             data = conn.recv(2048)
             reply = 'Server Output: '+data.decode('utf-8')
             app.addListItem("list", data.decode('utf-8'))
+
+            # recieved message console identifier
             print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" R "+"-> "+data.decode('utf-8'))
         except socket.error as e:
             print(str(e))
