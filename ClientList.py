@@ -28,16 +28,6 @@ print("*********************************")
 print("Client started at: " + str(time.strftime('%H:%M:%S', time.gmtime(time.time()))))
 print("")
 
-try:
-    s.connect((host, port))
-    print("Connection Made!")
-except socket.error as e:
-    app.warningBox("Connection Error", "Cannot find the host.", parent=None)
-    print("Connection Failed! - Cannot find the host on: "+str(host)+":"+str(port))
-    print(str(e))
-    app.stop()
-    sys.exit()
-
 # handle button events
 def press(button):
     if button == "Submit":
@@ -87,16 +77,46 @@ def sendGenre(genre):
         s.send(genre.encode())
         print("Sent:", genre)
     except socket.error as e:
-        app.warningBox("Error", "Request Not Sent", parent=None)
+        app.warningBox("Error", "Request for " + genre + " has not been sent", parent=None)
         print(str(e))
 
 # menu buttons
 def mnuPress(button):
     if button == "Close":
+        closeConn()
+    elif button == "Refresh":
+        refreshConn()
+
+# start the connection
+def startConn():
+    try:
+        s.connect((host, port))
+        print("Connection Made!")
+    except socket.error as e:
+        app.warningBox("Connection Error", "Cannot find the host.", parent=None)
+        print("Connection Failed! - Cannot find the host on: "+str(host)+":"+str(port))
+        print(str(e))
+        app.stop()
+        sys.exit()
+
+# close the connection and the application.
+def closeConn():
+    try:
         s.close()
         app.stop()
-    elif button == "Refresh":
+    except socket.error as e:
+        print(str(e))        
+
+# refresh connection
+def refreshConn():
+    try:
         print("Refreshing connection")
+    except socket.error as e:
+        app.warningBox("Connection Error", "Cannot refresh the connection", parent=None)
+        print(str(e))
+
+# start connection
+startConn()
 
 # app menu bar
 fileMenus = ["Refresh","-","Close"]
