@@ -18,7 +18,7 @@ app.setResizable(canResize=False)
 #Open and bind ports
 s = socket.socket()
 
-print("      DJ Request Client v0.3")
+print("      DJ Request Client v0.4")
 print("")
 print("*********************************")
 print("*    DJ Request Client - CLI    *")

@@ -21,24 +21,33 @@ app.setResizable(canResize=False)
 # declare Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# try to bing host
+# try to bind host
 try:
     s.bind((host, port))
-    print("      DJ Request Client v0.3")
-    print("")
+    # add intro text
+    print("      DJ Request Client v0.4")
+    print("") # new line
     print("*********************************")
     print("*    DJ Request Server - CLI    *")
     print("*      Written by J AW Ginn     *")
     print("*            (C) 2017           *")
     print("*********************************")
-    print("")
+    print("") # new line
+
+    # server start time
     print("Server started at: " + str(time.strftime('%H:%M:%S', time.gmtime(time.time()))))
-    print("")
+    print("") # new line
+
+    # GUI notice
     print("NOTE: GUI will only open when a client connection has been made...")
     print("Waiting for client connection...")
-    print("")
+    print("") # new line
+
+    # host details
     print("Host: " + str(host) + " Port: " + str(port))
-    print("")
+    print("") # new line
+
+    # error catch
 except socket.error as e:
     print(str(e))
 
@@ -78,19 +87,14 @@ while True:
     # handle button events
     def press(button):
         if button == "Cancel":
-            try:
-               print("Application has closed...")
-               s.close()
-               app.stop()
-            except socket.error as e:
-               app.warningBox("Error", "Error", parent=None)
-               print(str(e))
+            connClose()
         else:
             items = app.getListBox("list")
             if len(items)> 0:
                 app.removeListItem("list", items[0])
                 print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" I "+"-> "+"Request Deleted")
 
+    # handle menu button events
     def mnuPress(button):
        if button == "Close":
            connClose()
