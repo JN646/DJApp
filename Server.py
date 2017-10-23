@@ -111,7 +111,7 @@ while True:
     # handle button events
     def tbFunc(button):
         if button == "ABOUT":
-               app.warningBox("INFO", "About Box", parent=None)
+               app.infoBox("INFO", "About Box", parent=None)
         elif button == "REFRESH":
                print("Refreshing connection")
         elif button == "CLOSE":
