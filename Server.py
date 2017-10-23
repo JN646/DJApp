@@ -116,7 +116,7 @@ while True:
         elif button == "PRINT":
                print("Print Button Pressed")
         elif button == "HELP":
-               webbrowser.open("README.html")  # Go to example.com
+               webbrowser.open("README.html")  # Go to readme html.
                   
     # app menu bar
     fileMenus = ["Close"]

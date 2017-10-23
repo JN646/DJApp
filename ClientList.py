@@ -33,8 +33,8 @@ try:
     s.connect((host, port))
     print("Connection Made!")
 except socket.error as e:
-    app.warningBox("Error", "No Connection", parent=None)
-    print("Connection Failed!")
+    app.warningBox("Connection Error", "Cannot find the host.", parent=None)
+    print("Connection Failed! - Can not find the host on: "+str(host)+":"+str(port))
     print(str(e))
     app.stop()
     sys.exit()
