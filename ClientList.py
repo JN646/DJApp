@@ -14,7 +14,6 @@ app = gui("DJ Request Client v0.3")
 app.setFont(12)
 app.setBg("lightBlue")
 app.setResizable(canResize=False)
-#app.setGeometry(400,800)
 
 #Open and bind ports
 s = socket.socket()
@@ -34,17 +33,14 @@ try:
     print("Connection Made!")
 except socket.error as e:
     app.warningBox("Connection Error", "Cannot find the host.", parent=None)
-    print("Connection Failed! - Can not find the host on: "+str(host)+":"+str(port))
+    print("Connection Failed! - Cannot find the host on: "+str(host)+":"+str(port))
     print(str(e))
     app.stop()
     sys.exit()
 
 # handle button events
 def press(button):
-    if button == "Cancel":
-        s.close()
-        app.stop()
-    else:
+    if button == "Submit":
         usr = app.getEntry("Request")
         try:
             s.send(usr.encode())
@@ -59,59 +55,42 @@ def Requestpress(button):
             items = app.getListBox("list")
             if len(items)> 0:
                 app.selectListItem("list", items[0], callFunction=True)
-                #app.removeListItem("list", items[0])
+                #Add code to send the name of the selected item to the server.
                 print(app.selectListItem("list", items[0], callFunction=True))
-            
+
+# genre buttons            
 def pressGenre(button):
     if button == "Pop":
         genre = "POP"
-        try:
-            s.send(genre.encode())
-            print("Sent:", genre)
-        except socket.error as e:
-            app.warningBox("Error", "Request Not Sent", parent=None)
-            print(str(e))
+        sendGenre(genre)
     elif button == "Dance":
         genre = "DANCE"
-        try:
-            s.send(genre.encode())
-            print("Sent:", genre)
-        except socket.error as e:
-            app.warningBox("Error", "Request Not Sent", parent=None)
-            print(str(e))
+        sendGenre(genre)
     elif button == "Rock":
         genre = "ROCK"
-        try:
-            s.send(genre.encode())
-            print("Sent:", genre)
-        except socket.error as e:
-            app.warningBox("Error", "Request Not Sent", parent=None)
-            print(str(e))
+        sendGenre(genre)
     elif button == "Jazz":
         genre = "JAZZ"
-        try:
-            s.send(genre.encode())
-            print("Sent:", genre)
-        except socket.error as e:
-            app.warningBox("Error", "Request Not Sent", parent=None)
-            print(str(e))
+        sendGenre(genre)
     elif button == "RnB":
         genre = "RNB"
-        try:
-            s.send(genre.encode())
-            print("Sent:", genre)
-        except socket.error as e:
-            app.warningBox("Error", "Request Not Sent", parent=None)
-            print(str(e))
+        sendGenre(genre)
     elif button == "Other":
         genre = "OTHER"
-        try:
-            s.send(genre.encode())
-            print("Sent:", genre)
-        except socket.error as e:
-            app.warningBox("Error", "Request Not Sent", parent=None)
-            print(str(e))
+        sendGenre(genre)
+    elif button == "Test":
+        genre = "TEST"
+        sendGenre(genre)
 
+def sendGenre(genre):
+    try:
+        s.send(genre.encode())
+        print("Sent:", genre)
+    except socket.error as e:
+        app.warningBox("Error", "Request Not Sent", parent=None)
+        print(str(e))
+
+# menu buttons
 def mnuPress(button):
     if button == "Close":
         s.close()
@@ -132,7 +111,7 @@ app.setLabelFg("title", "White")
 
 # add genre buttons
 app.startLabelFrame("Genres")
-app.addButtons(["Pop", "Dance", "Rock", "Jazz", "RnB", "Other"], pressGenre)
+app.addButtons(["Pop", "Dance", "Rock", "Jazz", "RnB", "Other", "Test"], pressGenre)
 app.stopLabelFrame()
 
 # song list
@@ -144,10 +123,8 @@ app.stopLabelFrame()
 # add text field
 app.startLabelFrame("Send Request")
 app.addLabelEntry("Request")
+app.addButtons(["Submit"], press)
 app.stopLabelFrame()
-
-# link the buttons to the function called press
-app.addButtons(["Submit", "Cancel"], press)
 
 # set the initial field of entry
 app.setFocus("Request")
