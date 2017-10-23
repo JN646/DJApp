@@ -1,4 +1,4 @@
-#Imports
+# imports
 import socket
 import sys
 import time
@@ -7,7 +7,7 @@ from datetime import datetime
 from _thread import *
 from appJar import gui
 
-#Declare
+# declare
 host = '127.0.0.1'
 port = 5555
 ApplicationName = 'DJ Request System'
@@ -18,10 +18,10 @@ app.setFont(12)
 app.setBg("lightBlue")
 app.setResizable(canResize=False)
 
-#Declare Socket
+# declare Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-#Try to bing host
+# try to bing host
 try:
     s.bind((host, port))
     print("      DJ Request Client v0.3")
@@ -39,8 +39,6 @@ try:
     print("")
     print("Host: " + str(host) + " Port: " + str(port))
     print("")
-
-#Catch error
 except socket.error as e:
     print(str(e))
 
@@ -53,10 +51,13 @@ def threaded_client(conn):
 
     #Receive data
     while True:
-        data = conn.recv(2048)
-        reply = 'Server Output: '+data.decode('utf-8')
-        app.addListItem("list", data.decode('utf-8'))
-        print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" R "+"-> "+data.decode('utf-8'))
+        try:
+            data = conn.recv(2048)
+            reply = 'Server Output: '+data.decode('utf-8')
+            app.addListItem("list", data.decode('utf-8'))
+            print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" R "+"-> "+data.decode('utf-8'))
+        except socket.error as e:
+            print(str(e))
         if not data:
             break
         conn.sendall(str.encode(reply))
@@ -64,7 +65,7 @@ def threaded_client(conn):
     conn.close()
 
 while True:
-    #Accept conenction
+    #Accept connection
     try:
        conn, addr = s.accept()
        print('connected to: '+addr[0]+':'+str(addr[1]))
@@ -92,13 +93,7 @@ while True:
 
     def mnuPress(button):
        if button == "Close":
-            try:
-               print("Application has closed...")
-               s.close()
-               app.stop()
-            except socket.error as e:
-               app.warningBox("Error", "Error", parent=None)
-               print(str(e))
+           connClose()
 
     # handle button events
     def tbFunc(button):
@@ -107,17 +102,20 @@ while True:
         elif button == "REFRESH":
                print("Refreshing connection")
         elif button == "CLOSE":
-               print("Application has closed...")
-               try:
-                  s.close()
-                  app.stop()
-               except socket.error as e:
-                  print(str(e))
+               connClose()
         elif button == "PRINT":
                print("Print Button Pressed")
         elif button == "HELP":
                webbrowser.open("README.html")  # Go to readme html.
-                  
+
+    def connClose():
+        try:
+           print("Application has closed...")
+           s.close()
+           app.stop()
+        except socket.error as e:
+           print(str(e))
+           
     # app menu bar
     fileMenus = ["Close"]
     helpMenus = ["About"]

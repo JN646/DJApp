@@ -1,4 +1,4 @@
-# import the library
+# imports
 import socket
 import sys
 import time
