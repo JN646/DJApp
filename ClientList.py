@@ -1,3 +1,6 @@
+##  DJ Request System (Client)
+##  Written by J AW Ginn (C) 2017
+
 # imports
 import socket
 import sys
@@ -5,28 +8,31 @@ import time
 import webbrowser
 from appJar import gui
 
-#Define Connection
+# define Connection
 host = '127.0.0.1'
 port = 5555
 
 # create a GUI variable called app
-app = gui("DJ Request Client v0.3")
+app = gui("DJ Request Client v0.4")
 app.setFont(12)
 app.setBg("lightBlue")
-app.setResizable(canResize=False)
+app.setResizable(canResize=False) # no fullscreen
 
-#Open and bind ports
+# oSpen and bind ports
 s = socket.socket()
 
+# add intro text
 print("      DJ Request Client v0.4")
-print("")
+print("") # new line
 print("*********************************")
 print("*    DJ Request Client - CLI    *")
 print("*      Written by J AW Ginn     *")
 print("*            (C) 2017           *")
 print("*********************************")
+
+# server start time
 print("Client started at: " + str(time.strftime('%H:%M:%S', time.gmtime(time.time()))))
-print("")
+print("") # new line
 
 # handle button events
 def press(button):
@@ -72,6 +78,7 @@ def pressGenre(button):
         genre = "TEST"
         sendGenre(genre)
 
+# handles genre buttons
 def sendGenre(genre):
     try:
         s.send(genre.encode())
@@ -80,7 +87,7 @@ def sendGenre(genre):
         app.warningBox("Error", "Request for " + genre + " has not been sent", parent=None)
         print(str(e))
 
-# menu buttons
+# handles menu buttons
 def mnuPress(button):
     if button == "Close":
         closeConn()
@@ -111,7 +118,10 @@ def closeConn():
 def refreshConn():
     try:
         print("Refreshing connection")
+        closeConn() # close existing connection (if present)
+        startConn() # start new connection
     except socket.error as e:
+        # catch error and failure scenario
         app.warningBox("Connection Error", "Cannot refresh the connection", parent=None)
         print(str(e))
 
@@ -149,5 +159,5 @@ app.stopLabelFrame()
 # set the initial field of entry
 app.setFocus("Request")
 
-# start the GUI
-app.go()
+# start GUI
+app.go() # start GUI

@@ -1,3 +1,6 @@
+##  DJ Request System (Server)
+##  Written by J AW Ginn (C) 2017
+
 # imports
 import socket
 import sys
@@ -13,10 +16,10 @@ port = 5555
 ApplicationName = 'DJ Request System'
 
 # create a GUI variable called app
-app = gui("DJ Request Server v0.3")
+app = gui("DJ Request Server v0.4")
 app.setFont(12)
 app.setBg("lightBlue")
-app.setResizable(canResize=False)
+app.setResizable(canResize=False) # no fullscreen
 
 # declare Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -135,6 +138,7 @@ while True:
     # toolbar
     tools = ["ABOUT", "REFRESH", "CLOSE", "PRINT", "PREFERENCES", "HELP"]
 
+    # add toolbar with icons
     app.addToolbar(tools, tbFunc, findIcon=True)
     
     # add & configure widgets - widgets get a name, to help referencing them later
@@ -142,7 +146,7 @@ while True:
     app.setLabelBg("title", "blue")
     app.setLabelFg("title", "White")
 
-    # requests
+    # request textbox
     app.startLabelFrame("Requests")
     app.addListBox("list", ["apple", "orange", "pear", "kiwi"])
     app.stopLabelFrame()
@@ -155,4 +159,6 @@ while True:
 
     # link the buttons to the function called press
     app.addButtons(["Accept"], press)
-    app.go()
+
+    # start GUI
+    app.go() # start GUI
