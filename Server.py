@@ -26,44 +26,6 @@ app.setInPadding([5,5]) # 5 pixels padding inside the widget [X, Y]
 # declare Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# start GUI
-def openApp():
-    try:
-        ## MAIN APPLICATION
-        # app menu bar
-        fileMenus = ["Close"]
-        helpMenus = ["About"]
-        app.addMenuList("File", fileMenus, mnuPress)
-        app.addMenuList("Help", helpMenus, mnuPress)
-
-        # toolbar
-        tools = ["ABOUT", "REFRESH", "CLOSE", "PRINT", "PREFERENCES", "HELP"]
-
-        # add toolbar with icons
-        app.addToolbar(tools, tbFunc, findIcon=True)
-
-        # add & configure widgets - widgets get a name, to help referencing them later
-        app.addLabel("title", "DJ Request Server")
-        app.setLabelBg("title", "blue")
-        app.setLabelFg("title", "White")
-
-        # request textbox
-        #app.startLabelFrame("Requests")
-        app.addListBox("list", ["apple", "orange", "pear", "kiwi"])
-        #app.stopLabelFrame()
-
-        # status bar
-        app.addStatusbar(fields=1)
-        app.setStatusbar("ONLINE", 0) # Due to window handeling server "cannot" be offline.
-        app.setStatusbarBg("green", 0)
-        app.setStatusbarFg("white", 0)
-
-        # link the buttons to the function called press
-        app.addButtons(["CHECK"], press)
-        app.go()
-    except GUIError: # GUI error catch
-        print("GUI Error")
-
 # try to bind host
 try:
     s.bind((host, port))
@@ -89,8 +51,6 @@ try:
     # host details
     print("Host: " + str(host) + " Port: " + str(port))
     print("") # new line
-
-    openApp()
 
     # error catch
 except socket.error as e:
@@ -229,3 +189,41 @@ while True:
 
     # stop sub window
     app.stopSubWindow()
+
+    ## MAIN APPLICATION
+    # app menu bar
+    fileMenus = ["Close"]
+    helpMenus = ["About"]
+    app.addMenuList("File", fileMenus, mnuPress)
+    app.addMenuList("Help", helpMenus, mnuPress)
+
+    # toolbar
+    tools = ["ABOUT", "REFRESH", "CLOSE", "PRINT", "PREFERENCES", "HELP"]
+
+    # add toolbar with icons
+    app.addToolbar(tools, tbFunc, findIcon=True)
+
+    # add & configure widgets - widgets get a name, to help referencing them later
+    app.addLabel("title", "DJ Request Server")
+    app.setLabelBg("title", "blue")
+    app.setLabelFg("title", "White")
+
+    # request textbox
+    #app.startLabelFrame("Requests")
+    app.addListBox("list", ["apple", "orange", "pear", "kiwi"])
+    #app.stopLabelFrame()
+
+    # status bar
+    app.addStatusbar(fields=1)
+    app.setStatusbar("ONLINE", 0) # Due to window handeling server "cannot" be offline.
+    app.setStatusbarBg("green", 0)
+    app.setStatusbarFg("white", 0)
+
+    # link the buttons to the function called press
+    app.addButtons(["CHECK"], press)
+
+    # start GUI
+    try:
+        app.go()
+    except GUIError: # GUI error catch
+        print("GUI Error")
