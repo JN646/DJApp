@@ -169,27 +169,6 @@ while True:
             print("Updating host...") # not implemented
         elif button == "Cancel":
             app.hideSubWindow("Preferences")
-
-    ## PREFERENCES WINDOW
-    # preferences sub window
-    app.startSubWindow("Preferences", modal=True)
-    app.setResizable(canResize=False) # no fullscreen
-    app.setFont(12)
-    app.setBg("lightBlue")
-    app.addLabel("l1", "Preferences")
-    app.setLabelBg("l1", "blue")
-    app.setLabelFg("l1", "White")
-
-    # host update controls
-    app.startLabelFrame("Update Host")
-    app.addLabelEntry("Host: ")
-    app.addLabelEntry("IP:   ")
-    app.addButtons(["Update", "Cancel"], updateHost)
-    app.stopLabelFrame()
-
-    # stop sub window
-    app.stopSubWindow()
-
     ## MAIN APPLICATION
     # app menu bar
     fileMenus = ["Close"]
@@ -221,6 +200,27 @@ while True:
 
     # link the buttons to the function called press
     app.addButtons(["CHECK"], press)
+
+    ## PREFERENCES WINDOW
+    # preferences sub window
+    app.startSubWindow("Preferences", modal=True)
+    app.setResizable(canResize=False) # no fullscreen
+    app.setFont(12)
+    app.setBg("lightBlue")
+    app.addLabel("l1", "Preferences")
+    app.setLabelBg("l1", "blue")
+    app.setLabelFg("l1", "White")
+
+    # host update controls
+    app.startLabelFrame("Update Host")
+    app.addLabelEntry("Host: ")
+    app.addLabelEntry("IP:   ")
+    app.addButtons(["Update", "Cancel"], updateHost)
+    app.stopLabelFrame()
+
+    # stop sub window
+    app.stopSubWindow()
+
 
     # start GUI
     try:
