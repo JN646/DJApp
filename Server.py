@@ -21,15 +21,6 @@ app.setFont(12)
 app.setBg("lightBlue")
 app.setResizable(canResize=False) # no fullscreen
 
-# preferences sub window
-app.startSubWindow("Preferences", modal=True)
-app.addLabel("l1", "Preferences")
-app.setLabelBg("l1", "blue")
-app.setLabelFg("l1", "White")
-app.addLabelEntry("Host: ")
-app.addLabelEntry("IP: ")
-app.stopSubWindow()
-
 # declare Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -85,9 +76,12 @@ def threaded_client(conn):
             print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" R "+"-> "+data.decode('utf-8'))
         except socket.error as e:
             print(str(e))
-        if not data:
-            break
-        conn.sendall(str.encode(reply))
+        try:
+            if not data:
+                break
+            conn.sendall(str.encode(reply))
+        except socket.error as e:
+            print(str(e))        
     #Close connection
     conn.close()
 
@@ -167,6 +161,30 @@ while True:
         print("Refreshing connection") # not implemented
         app.infoBox("Coming Soon...", "Refresh Connection not implemented.", parent=None) 
 
+    # Update host details
+    def updateHost(button):
+        print("Updating host...") # not implemented
+
+    ## PREFERENCES WINDOW
+    # preferences sub window
+    app.startSubWindow("Preferences", modal=True)
+    app.setFont(12)
+    app.setBg("lightBlue")
+    app.addLabel("l1", "Preferences")
+    app.setLabelBg("l1", "blue")
+    app.setLabelFg("l1", "White")
+
+    # host update controls
+    app.startLabelFrame("Update Host")
+    app.addLabelEntry("Host: ")
+    app.addLabelEntry("IP:   ")
+    app.addButtons(["Update"], updateHost)
+    app.stopLabelFrame()
+    
+    # stop sub window
+    app.stopSubWindow()
+
+    ## MAIN APPLICATION
     # app menu bar
     fileMenus = ["Close"]
     helpMenus = ["About"]
