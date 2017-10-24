@@ -163,11 +163,15 @@ while True:
 
     # Update host details
     def updateHost(button):
-        print("Updating host...") # not implemented
+        if button == "Update":
+            print("Updating host...") # not implemented
+        elif button == "Cancel":
+            app.hideSubWindow("Preferences")
 
     ## PREFERENCES WINDOW
     # preferences sub window
     app.startSubWindow("Preferences", modal=True)
+    app.setResizable(canResize=False) # no fullscreen
     app.setFont(12)
     app.setBg("lightBlue")
     app.addLabel("l1", "Preferences")
@@ -178,7 +182,7 @@ while True:
     app.startLabelFrame("Update Host")
     app.addLabelEntry("Host: ")
     app.addLabelEntry("IP:   ")
-    app.addButtons(["Update"], updateHost)
+    app.addButtons(["Update", "Cancel"], updateHost)
     app.stopLabelFrame()
     
     # stop sub window
@@ -214,7 +218,10 @@ while True:
     app.setStatusbarFg("white", 0)
 
     # link the buttons to the function called press
-    app.addButtons(["Accept"], press)
+    app.addButtons(["CHECK"], press)
 
-    # start GUI
-    app.go() # start GUI
+  # start GUI
+    try:
+        app.go()
+    except GUIError: # GUI error catch
+        print("GUI Error")

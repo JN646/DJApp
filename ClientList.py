@@ -8,6 +8,9 @@ import time
 import webbrowser
 from appJar import gui
 
+# Define Colours
+colours = [ "red", "yellow", "green", "blue" ]
+
 # define Connection
 host = '127.0.0.1'
 port = 5555
@@ -41,6 +44,12 @@ def press(button):
         try:
             s.send(usr.encode())
             print("Sent:", usr)
+
+            # TODO
+            # add code to check to see if the field is empty.
+            # Do not allow message to be sent if field is empty.
+            
+            app.clearEntry("Request", callFunction=True) # clears the text box
         except socket.error as e:
             app.warningBox("Error", "Error", parent=None)
             print(str(e))
@@ -82,7 +91,7 @@ def pressGenre(button):
 def sendGenre(genre):
     try:
         s.send(genre.encode())
-        print("Sent:", genre)
+        print("Sent:", genre) # send a copy of the message to local console.
     except socket.error as e:
         app.warningBox("Error", "Request for " + genre + " has not been sent", parent=None)
         print(str(e))
@@ -142,13 +151,13 @@ app.addMenuList("Help", helpMenus, mnuPress)
 
 # add & configure widgets - widgets get a name, to help referencing them later
 app.addLabel("title", "DJ Request Client")
-app.setLabelBg("title", "blue")
+app.setLabelBg("title", "Blue")
 app.setLabelFg("title", "White")
 
 # add genre buttons
-app.startLabelFrame("Genres")
+# app.startLabelFrame("Genres")
 app.addButtons(["Pop", "Dance", "Rock", "Jazz", "RnB", "Other", "Test"], pressGenre)
-app.stopLabelFrame()
+# app.stopLabelFrame()
 
 # song list
 app.startLabelFrame("Song List")
@@ -160,10 +169,14 @@ app.stopLabelFrame()
 app.startLabelFrame("Send Request")
 app.addLabelEntry("Request")
 app.addButtons(["Submit"], press)
+app.setEntryMaxLength("Request", 30)
 app.stopLabelFrame()
 
 # set the initial field of entry
 app.setFocus("Request")
 
 # start GUI
-app.go() # start GUI
+try:
+    app.go()
+except GUIError: # GUI error catch
+    print("GUI Error")
