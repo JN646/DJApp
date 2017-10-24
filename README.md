@@ -13,4 +13,4 @@ The client application runs in python with both a console and a GUI. This applic
 
 ## Required dependencies
 This applications require the following Python dependencies to run as expected. These should be downloaded and placed in the root folder.
-- AppJar
+- AppJar - GUI and interface.
