@@ -115,14 +115,17 @@ while True:
         if button == "ABOUT":
             aboutbox()
         elif button == "REFRESH":
-            print("Refreshing connection")
+            refreshbutton()
         elif button == "CLOSE":
             connClose()
         elif button == "PRINT":
-            print("Print Button Pressed")
+            printbutton()
+        elif button == "PREFERENCES":
+            preferencesbutton()
         elif button == "HELP":
             webbrowser.open("README.html")  # Go to readme html.
 
+    # close connection
     def connClose():
         try:
            print("Application has closed...")
@@ -134,6 +137,18 @@ while True:
     # about box
     def aboutbox():
         app.infoBox("About", "DJ Request App - Server", parent=None)
+
+    # print button
+    def printbutton():
+        print("Print Button Pressed") # not implemented
+
+    # preferences button
+    def preferencesbutton():
+        print("Preferences Button Pressed") # not implemented
+
+    # refresh button
+    def refreshbutton():
+        print("Refreshing connection") # not implemented
 
     # app menu bar
     fileMenus = ["Close"]
