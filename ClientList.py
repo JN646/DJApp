@@ -93,6 +93,8 @@ def mnuPress(button):
         closeConn()
     elif button == "Refresh":
         refreshConn()
+    elif button == "About":
+        aboutbox()
 
 # start the connection
 def startConn():
@@ -124,6 +126,10 @@ def refreshConn():
         # catch error and failure scenario
         app.warningBox("Connection Error", "Cannot refresh the connection", parent=None)
         print(str(e))
+
+# about box
+def aboutbox():
+    app.infoBox("About", "DJ Request App - Client", parent=None)
 
 # start connection
 startConn()

@@ -107,19 +107,21 @@ while True:
     def mnuPress(button):
        if button == "Close":
            connClose()
+       elif button == "About":
+           aboutbox()
 
     # handle button events
     def tbFunc(button):
         if button == "ABOUT":
-               app.infoBox("INFO", "About Box", parent=None)
+            aboutbox()
         elif button == "REFRESH":
-               print("Refreshing connection")
+            print("Refreshing connection")
         elif button == "CLOSE":
-               connClose()
+            connClose()
         elif button == "PRINT":
-               print("Print Button Pressed")
+            print("Print Button Pressed")
         elif button == "HELP":
-               webbrowser.open("README.html")  # Go to readme html.
+            webbrowser.open("README.html")  # Go to readme html.
 
     def connClose():
         try:
@@ -128,6 +130,10 @@ while True:
            app.stop()
         except socket.error as e:
            print(str(e))
+
+    # about box
+    def aboutbox():
+        app.infoBox("About", "DJ Request App - Server", parent=None)
 
     # app menu bar
     fileMenus = ["Close"]
@@ -153,7 +159,7 @@ while True:
 
     # status bar
     app.addStatusbar(fields=1)
-    app.setStatusbar("ONLINE", 0)
+    app.setStatusbar("ONLINE", 0) # Due to window handeling server "cannot" be offline.
     app.setStatusbarBg("green", 0)
     app.setStatusbarFg("white", 0)
 
