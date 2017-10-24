@@ -48,7 +48,7 @@ def press(button):
             # TODO
             # add code to check to see if the field is empty.
             # Do not allow message to be sent if field is empty.
-            
+
             app.clearEntry("Request", callFunction=True) # clears the text box
         except socket.error as e:
             app.warningBox("Error", "Error", parent=None)

@@ -81,7 +81,7 @@ def threaded_client(conn):
                 break
             conn.sendall(str.encode(reply))
         except socket.error as e:
-            print(str(e))        
+            print(str(e))
     #Close connection
     conn.close()
 
@@ -148,18 +148,18 @@ while True:
     # print button
     def printbutton():
         print("Print Button Pressed") # not implemented
-        app.infoBox("Coming Soon...", "Print not implemented.", parent=None)        
+        app.infoBox("Coming Soon...", "Print not implemented.", parent=None)
 
     # preferences button
     def preferencesbutton():
         print("Preferences Button Pressed") # not implemented
-        #app.infoBox("Coming Soon...", "Preferences not implemented.", parent=None) 
+        #app.infoBox("Coming Soon...", "Preferences not implemented.", parent=None)
         launch()
 
     # refresh button
     def refreshbutton():
         print("Refreshing connection") # not implemented
-        app.infoBox("Coming Soon...", "Refresh Connection not implemented.", parent=None) 
+        app.infoBox("Coming Soon...", "Refresh Connection not implemented.", parent=None)
 
     # Update host details
     def updateHost(button):
@@ -184,7 +184,7 @@ while True:
     app.addLabelEntry("IP:   ")
     app.addButtons(["Update", "Cancel"], updateHost)
     app.stopLabelFrame()
-    
+
     # stop sub window
     app.stopSubWindow()
 
