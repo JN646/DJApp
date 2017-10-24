@@ -21,6 +21,15 @@ app.setFont(12)
 app.setBg("lightBlue")
 app.setResizable(canResize=False) # no fullscreen
 
+# preferences sub window
+app.startSubWindow("Preferences", modal=True)
+app.addLabel("l1", "Preferences")
+app.setLabelBg("l1", "blue")
+app.setLabelFg("l1", "White")
+app.addLabelEntry("Host: ")
+app.addLabelEntry("IP: ")
+app.stopSubWindow()
+
 # declare Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -134,6 +143,10 @@ while True:
         except socket.error as e:
            print(str(e))
 
+    # preferences sub window
+    def launch():
+       app.showSubWindow("Preferences")
+
     # about box
     def aboutbox():
         app.infoBox("About", "DJ Request App - Server", parent=None)
@@ -141,14 +154,18 @@ while True:
     # print button
     def printbutton():
         print("Print Button Pressed") # not implemented
+        app.infoBox("Coming Soon...", "Print not implemented.", parent=None)        
 
     # preferences button
     def preferencesbutton():
         print("Preferences Button Pressed") # not implemented
+        #app.infoBox("Coming Soon...", "Preferences not implemented.", parent=None) 
+        launch()
 
     # refresh button
     def refreshbutton():
         print("Refreshing connection") # not implemented
+        app.infoBox("Coming Soon...", "Refresh Connection not implemented.", parent=None) 
 
     # app menu bar
     fileMenus = ["Close"]
