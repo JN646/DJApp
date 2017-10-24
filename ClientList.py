@@ -149,7 +149,11 @@ helpMenus = ["About"]
 app.addMenuList("File", fileMenus, mnuPress)
 app.addMenuList("Help", helpMenus, mnuPress)
 
-# add & configure widgets - widgets get a name, to help referencing them later
+# set widget padding
+app.setPadding([10,5]) # 20 pixels padding outside the widget [X, Y]
+app.setInPadding([5,5]) # 5 pixels padding inside the widget [X, Y]
+
+# add Title label
 app.addLabel("title", "DJ Request Client")
 app.setLabelBg("title", "Blue")
 app.setLabelFg("title", "White")
@@ -160,17 +164,17 @@ app.addButtons(["Pop", "Dance", "Rock", "Jazz", "RnB", "Other", "Test"], pressGe
 # app.stopLabelFrame()
 
 # song list
-app.startLabelFrame("Song List")
+#app.startLabelFrame("Song List")
 app.addListBox("list", ["apple", "orange", "pear", "kiwi"])
 app.addButtons(["Request"], Requestpress)
-app.stopLabelFrame()
+#app.stopLabelFrame()
 
 # add text field
-app.startLabelFrame("Send Request")
+#app.startLabelFrame("Send Request")
 app.addLabelEntry("Request")
 app.addButtons(["Submit"], press)
 app.setEntryMaxLength("Request", 30)
-app.stopLabelFrame()
+#app.stopLabelFrame()
 
 # set the initial field of entry
 app.setFocus("Request")

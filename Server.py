@@ -20,6 +20,8 @@ app = gui("DJ Request Server v0.4")
 app.setFont(12)
 app.setBg("lightBlue")
 app.setResizable(canResize=False) # no fullscreen
+app.setPadding([10,5]) # 20 pixels padding outside the widget [X, Y]
+app.setInPadding([5,5]) # 5 pixels padding inside the widget [X, Y]
 
 # declare Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -207,9 +209,9 @@ while True:
     app.setLabelFg("title", "White")
 
     # request textbox
-    app.startLabelFrame("Requests")
+    #app.startLabelFrame("Requests")
     app.addListBox("list", ["apple", "orange", "pear", "kiwi"])
-    app.stopLabelFrame()
+    #app.stopLabelFrame()
 
     # status bar
     app.addStatusbar(fields=1)
