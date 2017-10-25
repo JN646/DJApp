@@ -163,9 +163,8 @@ while True:
 
     # print button
     def printbutton():
-        print("Print Button Pressed") # not implemented
-        app.infoBox("Coming Soon...", "Print not implemented.", parent=None)
-
+        print(app.getAllListItems("list")) # print items to the console
+        
     # preferences button
     def preferencesbutton():
         print("Preferences Button Pressed") # not implemented
@@ -196,6 +195,7 @@ while True:
 
     # add toolbar with icons
     app.addToolbar(tools, tbFunc, findIcon=True)
+    app.setToolbarPinned(pinned=True)
 
     # add & configure widgets - widgets get a name, to help referencing them later
     app.addLabel("title", "DJ Request Server")

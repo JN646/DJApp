@@ -170,22 +170,16 @@ app.setLabelBg("title", colour[5])
 app.setLabelFg("title", colour[1])
 
 # add genre buttons
-# app.startLabelFrame("Genres")
 app.addButtons(["Pop", "Dance", "Rock", "Jazz", "RnB", "Other", "Test"], pressGenre)
-# app.stopLabelFrame()
 
 # song list
-#app.startLabelFrame("Song List")
-app.addListBox("list", ["apple", "orange", "pear", "kiwi"])
+app.addListBox("list", ["apple", "orange", "pear", "kiwi", "mango", "bananna", "apricot", "coconut"])
 app.addButtons(["Request"], Requestpress)
-#app.stopLabelFrame()
 
 # add text field
-#app.startLabelFrame("Send Request")
 app.addLabelEntry("Request")
 app.addButtons(["Submit"], press)
 app.setEntryMaxLength("Request", 30)
-#app.stopLabelFrame()
 
 # set the initial field of entry
 app.setFocus("Request")
