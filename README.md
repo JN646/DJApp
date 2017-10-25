@@ -11,6 +11,9 @@ The server application runs in python with both a console and GUI. This accepts 
 ### Client
 The client application runs in python with both a console and a GUI. This application sends song requests to a server on running on the same network. The user can choose from a genre, individual song or manually type a request before it is sent.
 
+### Web
+The web application is a work in progress that will allow WebSocket connection to the Python server, providing similar capabilities as the python client application. This will be using Bootstrap v4.0-beta3 and will be responsive to all device screens and sizes.
+
 ## Required dependencies
 This applications require the following Python dependencies to run as expected. These should be downloaded and placed in the root folder.
 - AppJar - GUI and interface.
