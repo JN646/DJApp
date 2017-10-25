@@ -11,7 +11,14 @@ from _thread import *
 from appJar import gui
 
 # define Colours
-colour = [ "Black", "White", "GreenYellow", "blue", "LightSteelBlue", "RoyalBlue", "CrimsonRed"]
+colour = [
+    "Black",
+    "White",
+    "GreenYellow",
+    "blue",
+    "LightSteelBlue",
+    "RoyalBlue",
+    "Red"]
 
 # declare
 host = '127.0.0.1'
@@ -33,7 +40,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.bind((host, port))
     # add intro text
-    print("      DJ Request Client v0.4")
+    print("      DJ Request Client v0.4b")
     print("") # new line
     print("*********************************")
     print("*    DJ Request Server - CLI    *")
@@ -82,6 +89,7 @@ def threaded_client(conn):
         except socket.error as e:
             print(str(e))
         try:
+            # causes application failure on closing connection.
             if not data:
                 break
             conn.sendall(str.encode(reply))
@@ -95,6 +103,7 @@ while True:
     try:
        conn, addr = s.accept()
        print('connected to: '+addr[0]+':'+str(addr[1]))
+       connStat = 1
     except socket.error as e:
        print(str(e))
 
@@ -137,6 +146,7 @@ while True:
     def connClose():
         try:
            print("Application has closed...")
+           connStat = 0
            s.close()
            app.stop()
         except socket.error as e:
@@ -172,6 +182,7 @@ while True:
             print("Updating host...") # not implemented
         elif button == "Cancel":
             app.hideSubWindow("Preferences")
+
     ## MAIN APPLICATION
     # app menu bar
     fileMenus = ["Close"]
@@ -197,9 +208,15 @@ while True:
 
     # status bar
     app.addStatusbar(fields=1)
-    app.setStatusbar("ONLINE", 0) # Due to window handeling server "cannot" be offline.
-    app.setStatusbarBg(colour[2], 0)
-    app.setStatusbarFg(colour[0], 0)
+
+    if connStat == 0:
+        app.setStatusbar("OFFLINE", 0) # Due to window handeling server "cannot" be offline.
+        app.setStatusbarBg(colour[6], 0)
+        app.setStatusbarFg(colour[0], 0)
+    else:
+        app.setStatusbar("ONLINE", 0) # Due to window handeling server "cannot" be offline.
+        app.setStatusbarBg(colour[2], 0)
+        app.setStatusbarFg(colour[0], 0)
 
     # link the buttons to the function called press
     app.addButtons(["CHECK"], press)

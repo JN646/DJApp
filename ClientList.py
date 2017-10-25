@@ -9,7 +9,15 @@ import webbrowser
 from appJar import gui
 
 # define Colours
-colour = [ "Black", "White", "GreenYellow", "blue", "LightSteelBlue", "RoyalBlue", "CrimsonRed"]
+colour = [
+    "Black",
+    "White",
+    "GreenYellow",
+    "blue",
+    "LightSteelBlue",
+    "RoyalBlue",
+    "CrimsonRed"]
+
 # define Connection
 host = '127.0.0.1'
 port = 5555
@@ -24,7 +32,7 @@ app.setResizable(canResize=False) # no fullscreen
 s = socket.socket()
 
 # add intro text
-print("      DJ Request Client v0.4")
+print("      DJ Request Client v0.4b")
 print("") # new line
 print("*********************************")
 print("*    DJ Request Client - CLI    *")
