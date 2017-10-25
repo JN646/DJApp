@@ -207,23 +207,26 @@ while True:
     ## PREFERENCES WINDOW
     # preferences sub window
     app.startSubWindow("Preferences", modal=True)
+    app.setPadding([10,5]) # 20 pixels padding outside the widget [X, Y]
+    app.setInPadding([5,5]) # 5 pixels padding inside the widget [X, Y]
     app.setResizable(canResize=False) # no fullscreen
     app.setFont(12)
-    app.setBg("lightBlue")
+    app.setBg(colour[4])
     app.addLabel("l1", "Preferences")
     app.setLabelBg("l1", colour[5])
     app.setLabelFg("l1", colour[1])
 
     # host update controls
-    app.startLabelFrame("Update Host")
-    app.addLabelEntry("Host: ")
+    # app.startLabelFrame("Update Host")
     app.addLabelEntry("IP:   ")
+    app.addLabelEntry("Port: ")
+    app.setEntryDefault("IP:   ", str(host))
+    app.setEntryDefault("Port: ", str(port))
     app.addButtons(["Update", "Cancel"], updateHost)
-    app.stopLabelFrame()
+    # app.stopLabelFrame()
 
     # stop sub window
     app.stopSubWindow()
-
 
     # start GUI
     try:
