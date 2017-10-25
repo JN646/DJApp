@@ -16,9 +16,10 @@ if (window.WebSocket === undefined) {
 		
   window.addEventListener("load", onLoad, false);
 }
-	
+
+// When the page is loaded
 function onLoad() {
-  var wsUri = "ws://127.0.0.1:5555";
+  var wsUri = "ws://127.0.0.1:5555"; // Default host details.
   websocket = new WebSocket(wsUri);
   websocket.onopen = function(evt) { onOpen(evt) };
   websocket.onclose = function(evt) { onClose(evt) };
@@ -26,11 +27,13 @@ function onLoad() {
   websocket.onerror = function(evt) { onError(evt) };
 }
 	
+// Open the connection
 function onOpen(evt) {
   state.className = "success";
   state.innerHTML = "Connected to server";
 }
-	
+
+// Close the connection	
 function onClose(evt) {
   state.className = "fail";
   state.innerHTML = "Not connected";
@@ -52,12 +55,14 @@ function onMessage(evt) {
 	 connected.innerHTML = message;
   }
 }
-	
+
+// On connection error
 function onError(evt) {
   state.className = "fail";
   state.innerHTML = "Communication error";
 }
-	
+
+// Add the message
 function addMessage() {
   var message = chat.value;
   chat.value = "";

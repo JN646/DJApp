@@ -4,10 +4,11 @@
 <meta>
 <title>DJ Request Application</title>
 <link href="css/main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 
 <body>
-	<div id="wrapper">
+	<div class="container">
 		<h1>DJ Request Application</h1>
 
 		<form onsubmit="addMessage(); return false;"><input id="chat" type="text"></form>
@@ -17,6 +18,8 @@
 		<p>Users connected: <span id="connected">0</span></p>
 
 		<ul id="log"></ul><script type="text/javascript" src="js/main.js"></script>
+		
+		<p><small>DJ Request Application - Web Interface v0.4</small></p>
 	</div>
 </body>
 </html>
