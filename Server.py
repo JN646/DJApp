@@ -91,6 +91,7 @@ def threaded_client(conn):
         try:
             # causes application failure on closing connection.
             if not data:
+                print("Client has disconnected.")
                 break
             conn.sendall(str.encode(reply))
         except socket.error as e:

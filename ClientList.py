@@ -64,11 +64,15 @@ def press(button):
 # request song from list
 def Requestpress(button):
     if button == "Request":
-            items = app.getListBox("list")
-            if len(items)> 0:
-                app.selectListItem("list", items[0], callFunction=True)
-                #Add code to send the name of the selected item to the server.
-                print(app.selectListItem("list", items[0], callFunction=True))
+        items = app.getListBox("list")
+        if len(items)> 0:
+            #app.selectListItem("list", items[0], callFunction=True)
+            #Add code to send the name of the selected item to the server.
+
+            s.send(items[0].encode())
+            print("Sent:", app.getListBox("list")) # get name of selected item
+        else:
+            print("No selected item.")
 
 # genre buttons
 def pressGenre(button):
