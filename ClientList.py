@@ -8,9 +8,8 @@ import time
 import webbrowser
 from appJar import gui
 
-# Define Colours
-colours = [ "red", "yellow", "green", "blue" ]
-
+# define Colours
+colour = [ "Black", "White", "GreenYellow", "blue", "LightSteelBlue", "RoyalBlue", "CrimsonRed"]
 # define Connection
 host = '127.0.0.1'
 port = 5555
@@ -18,7 +17,7 @@ port = 5555
 # create a GUI variable called app
 app = gui("DJ Request Client v0.4")
 app.setFont(12)
-app.setBg("lightBlue")
+app.setBg(colour[4])
 app.setResizable(canResize=False) # no fullscreen
 
 # oSpen and bind ports
@@ -155,8 +154,8 @@ app.setInPadding([5,5]) # 5 pixels padding inside the widget [X, Y]
 
 # add Title label
 app.addLabel("title", "DJ Request Client")
-app.setLabelBg("title", "Blue")
-app.setLabelFg("title", "White")
+app.setLabelBg("title", colour[5])
+app.setLabelFg("title", colour[1])
 
 # add genre buttons
 # app.startLabelFrame("Genres")

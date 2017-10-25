@@ -10,6 +10,9 @@ from datetime import datetime
 from _thread import *
 from appJar import gui
 
+# define Colours
+colour = [ "Black", "White", "GreenYellow", "blue", "LightSteelBlue", "RoyalBlue", "CrimsonRed"]
+
 # declare
 host = '127.0.0.1'
 port = 5555
@@ -18,7 +21,7 @@ ApplicationName = 'DJ Request System'
 # create a GUI variable called app
 app = gui("DJ Request Server v0.4")
 app.setFont(12)
-app.setBg("lightBlue")
+app.setBg(colour[4])
 app.setResizable(canResize=False) # no fullscreen
 app.setPadding([10,5]) # 20 pixels padding outside the widget [X, Y]
 app.setInPadding([5,5]) # 5 pixels padding inside the widget [X, Y]
@@ -184,8 +187,8 @@ while True:
 
     # add & configure widgets - widgets get a name, to help referencing them later
     app.addLabel("title", "DJ Request Server")
-    app.setLabelBg("title", "blue")
-    app.setLabelFg("title", "White")
+    app.setLabelBg("title", colour[5])
+    app.setLabelFg("title", colour[1])
 
     # request textbox
     #app.startLabelFrame("Requests")
@@ -195,8 +198,8 @@ while True:
     # status bar
     app.addStatusbar(fields=1)
     app.setStatusbar("ONLINE", 0) # Due to window handeling server "cannot" be offline.
-    app.setStatusbarBg("green", 0)
-    app.setStatusbarFg("white", 0)
+    app.setStatusbarBg(colour[2], 0)
+    app.setStatusbarFg(colour[0], 0)
 
     # link the buttons to the function called press
     app.addButtons(["CHECK"], press)
@@ -208,8 +211,8 @@ while True:
     app.setFont(12)
     app.setBg("lightBlue")
     app.addLabel("l1", "Preferences")
-    app.setLabelBg("l1", "blue")
-    app.setLabelFg("l1", "White")
+    app.setLabelBg("l1", colour[5])
+    app.setLabelFg("l1", colour[1])
 
     # host update controls
     app.startLabelFrame("Update Host")
