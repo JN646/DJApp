@@ -11,7 +11,7 @@ import csv
 from appJar import gui
 
 # logging config
-logging.basicConfig(filename="LOGS/CLIENT-logging.log", level=logging.INFO,
+logging.basicConfig(filename="LOGS/CLIENT-logging.log", level=logging.WARNING,
                     format="%(asctime)s:%(levelname)s:%(message)s")
 
 # define Colours
@@ -29,7 +29,7 @@ host = '127.0.0.1'
 port = 5555
 
 # create a GUI variable called app
-app = gui("DJ Request Client v0.4")
+app = gui("DJ Request Client v0.4c")
 app.setFont(12)
 app.setBg(colour[4])
 app.setResizable(canResize=False) # no fullscreen
@@ -38,7 +38,7 @@ app.setResizable(canResize=False) # no fullscreen
 s = socket.socket()
 
 # add intro text
-print("      DJ Request Client v0.4b")
+print("      DJ Request Client v0.4c")
 print("") # new line
 print("*********************************")
 print("*    DJ Request Client - CLI    *")
@@ -72,11 +72,11 @@ def Requestpress(button):
     if button == "Request":
         items = app.getListBox("list")
         if len(items)> 0:
-            #app.selectListItem("list", items[0], callFunction=True)
-            #Add code to send the name of the selected item to the server.
-
-            s.send(items[0].encode())
+            # send the selected item to the server.
+            s.send(str(items[0]).encode())
+            app.setListItemBg("list", app.getListBox("list"), colour[3])
             logging.info("Sent:", app.getListBox("list")) # get name of selected item
+            app.removeListItem("list", items[0])
         else:
             logging.info("No selected item.")
 
@@ -125,20 +125,20 @@ def mnuPress(button):
 # start the connection
 def startConn():
     try:
-        s.connect((host, port))
+        s.connect((host, port)) # connect to host and port.
         logging.info("Connection Made!")
     except socket.error as e:
         app.warningBox("Connection Error", "Cannot find the host.", parent=None)
         logging.warning("Connection Failed! - Cannot find the host on: "+str(host)+":"+str(port))
         logging.warning(str(e))
-        app.stop()
-        sys.exit()
+        app.stop() # stop the app
+        sys.exit() # close all windows and kill the process
 
 # close the connection and the application.
 def closeConn():
     try:
-        s.close()
-        app.stop()
+        s.close()   # close the connection
+        app.stop()  # stop the app
     except socket.error as e:
         logging.warning(str(e))
 
@@ -165,7 +165,7 @@ def fileImport():
 
         for line in csv_reader:
             # add each line as a new list item.
-            app.addListItem("list", line[1])
+            app.addListItem("list", line[1] + " - " + line[0])
 
 # start connection
 startConn()
@@ -189,7 +189,7 @@ app.setLabelFg("title", colour[1])
 app.addButtons(["Pop", "Dance", "Rock", "Jazz", "RnB", "Other", "Test"], pressGenre)
 
 # song list
-app.addListBox("list", ["apple", "orange", "pear", "kiwi", "mango", "bananna", "apricot", "coconut"])
+app.addListBox("list", ["Remove.Me"])
 fileImport()
 app.addButtons(["Request"], Requestpress)
 

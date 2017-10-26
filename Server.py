@@ -13,7 +13,7 @@ from _thread import *
 from appJar import gui
 
 # logging config
-logging.basicConfig(filename="LOGS/SERVER-logging.log", level=logging.INFO,
+logging.basicConfig(filename="LOGS/SERVER-logging.log", level=logging.WARNING,
                     format="%(asctime)s:%(levelname)s:%(message)s")
 
 # define Colours
@@ -32,7 +32,7 @@ port = 5555
 ApplicationName = 'DJ Request System'
 
 # create a GUI variable called app
-app = gui("DJ Request Server v0.4")
+app = gui("DJ Request Server v0.4c")
 app.setBg(colour[4])
 app.setResizable(canResize=False) # no fullscreen
 app.setFont(12)
@@ -46,7 +46,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.bind((host, port))
     # add intro text
-    print("      DJ Request Client v0.4b")
+    print("      DJ Request Client v0.4c")
     print("") # new line
     print("*********************************")
     print("*    DJ Request Server - CLI    *")
@@ -126,6 +126,7 @@ while True:
             if len(items)> 0:
                 app.removeListItem("list", items[0])
                 logging.info(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" I "+"-> "+"Request Deleted")
+                print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" I "+"-> "+"Request Deleted")
 
     # handle menu button events
     def mnuPress(button):
@@ -217,7 +218,7 @@ while True:
         app.addMenuRadioButton("Font Size", "font", "1" + str(i), fontSize)
     
     # toolbar
-    tools = ["ABOUT", "REFRESH", "CLOSE", "PRINT", "IMPORT", "PREFERENCES", "HELP"]
+    tools = ["REFRESH", "CLOSE", "PRINT", "PREFERENCES", "ABOUT", "HELP"]
 
     # add toolbar with icons
     app.addToolbar(tools, tbFunc, findIcon=True)
