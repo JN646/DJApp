@@ -12,7 +12,8 @@ from _thread import *
 from appJar import gui
 
 # logging config
-logging.basicConfig(filename="LOGS/SERVER-logging.log", level=logging.INFO)
+logging.basicConfig(filename="LOGS/SERVER-logging.log", level=logging.INFO,
+                    format="%(asctime)s:%(levelname)s:%(message)s")
 
 # define Colours
 colour = [
