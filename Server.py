@@ -5,6 +5,7 @@
 import socket
 import sys
 import time
+import csv
 import webbrowser
 import logging
 from datetime import datetime
@@ -181,7 +182,7 @@ while True:
         logging.info("Refreshing connection") # not implemented
         app.infoBox("Coming Soon...", "Refresh Connection not implemented.", parent=None)
 
-    # Update host details
+    # update host details
     def updateHost(button):
         if button == "Update":
             logging.info("Updating host...") # not implemented
@@ -216,7 +217,7 @@ while True:
         app.addMenuRadioButton("Font Size", "font", "1" + str(i), fontSize)
     
     # toolbar
-    tools = ["ABOUT", "REFRESH", "CLOSE", "PRINT", "PREFERENCES", "HELP"]
+    tools = ["ABOUT", "REFRESH", "CLOSE", "PRINT", "IMPORT", "PREFERENCES", "HELP"]
 
     # add toolbar with icons
     app.addToolbar(tools, tbFunc, findIcon=True)

@@ -7,6 +7,7 @@ import sys
 import time
 import webbrowser
 import logging
+import csv
 from appJar import gui
 
 # logging config
@@ -156,6 +157,16 @@ def refreshConn():
 def aboutbox():
     app.infoBox("About", "DJ Request App - Client", parent=None)
 
+# file import
+def fileImport():
+    # open list of songs.
+    with open('WordList.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+
+        for line in csv_reader:
+            # add each line as a new list item.
+            app.addListItem("list", line[1])
+
 # start connection
 startConn()
 
@@ -179,6 +190,7 @@ app.addButtons(["Pop", "Dance", "Rock", "Jazz", "RnB", "Other", "Test"], pressGe
 
 # song list
 app.addListBox("list", ["apple", "orange", "pear", "kiwi", "mango", "bananna", "apricot", "coconut"])
+fileImport()
 app.addButtons(["Request"], Requestpress)
 
 # add text field
