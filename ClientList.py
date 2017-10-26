@@ -6,7 +6,11 @@ import socket
 import sys
 import time
 import webbrowser
+import logging
 from appJar import gui
+
+# logging config
+logging.basicConfig(filename="LOGS/CLIENT-logging.log", level=logging.INFO)
 
 # define Colours
 colour = [
@@ -50,7 +54,7 @@ def press(button):
         usr = app.getEntry("Request")
         try:
             s.send(usr.encode())
-            print("Sent:", usr)
+            logging.info("Sent:", usr)
 
             # TODO
             # add code to check to see if the field is empty.
@@ -59,7 +63,7 @@ def press(button):
             app.clearEntry("Request", callFunction=True) # clears the text box
         except socket.error as e:
             app.warningBox("Error", "Error", parent=None)
-            print(str(e))
+            logging.warning(str(e))
 
 # request song from list
 def Requestpress(button):
@@ -70,9 +74,9 @@ def Requestpress(button):
             #Add code to send the name of the selected item to the server.
 
             s.send(items[0].encode())
-            print("Sent:", app.getListBox("list")) # get name of selected item
+            logging.info("Sent:", app.getListBox("list")) # get name of selected item
         else:
-            print("No selected item.")
+            logging.info("No selected item.")
 
 # genre buttons
 def pressGenre(button):
@@ -102,10 +106,10 @@ def pressGenre(button):
 def sendGenre(genre):
     try:
         s.send(genre.encode())
-        print("Sent:", genre) # send a copy of the message to local console.
+        logging.info("Sent:", genre) # send a copy of the message to local console.
     except socket.error as e:
         app.warningBox("Error", "Request for " + genre + " has not been sent", parent=None)
-        print(str(e))
+        logging.warning(str(e))
 
 # handles menu buttons
 def mnuPress(button):
@@ -120,11 +124,11 @@ def mnuPress(button):
 def startConn():
     try:
         s.connect((host, port))
-        print("Connection Made!")
+        logging.info("Connection Made!")
     except socket.error as e:
         app.warningBox("Connection Error", "Cannot find the host.", parent=None)
-        print("Connection Failed! - Cannot find the host on: "+str(host)+":"+str(port))
-        print(str(e))
+        logging.warning("Connection Failed! - Cannot find the host on: "+str(host)+":"+str(port))
+        logging.warning(str(e))
         app.stop()
         sys.exit()
 
@@ -134,18 +138,18 @@ def closeConn():
         s.close()
         app.stop()
     except socket.error as e:
-        print(str(e))
+        logging.warning(str(e))
 
 # refresh connection
 def refreshConn():
     try:
-        print("Refreshing connection")
+        logging.info("Refreshing connection")
         closeConn() # close existing connection (if present)
         startConn() # start new connection
     except socket.error as e:
         # catch error and failure scenario
         app.warningBox("Connection Error", "Cannot refresh the connection", parent=None)
-        print(str(e))
+        logging.warning(str(e))
 
 # about box
 def aboutbox():
@@ -161,8 +165,8 @@ app.addMenuList("File", fileMenus, mnuPress)
 app.addMenuList("Help", helpMenus, mnuPress)
 
 # set widget padding
-app.setPadding([10,5]) # 20 pixels padding outside the widget [X, Y]
-app.setInPadding([5,5]) # 5 pixels padding inside the widget [X, Y]
+app.setPadding([10,5])      # 20 pixels padding outside the widget [X, Y]
+app.setInPadding([5,5])     # 5 pixels padding inside the widget [X, Y]
 
 # add Title label
 app.addLabel("title", "DJ Request Client")
@@ -188,4 +192,4 @@ app.setFocus("Request")
 try:
     app.go()
 except GUIError: # GUI error catch
-    print("GUI Error")
+    logging.warning("GUI Error")

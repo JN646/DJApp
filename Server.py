@@ -6,9 +6,13 @@ import socket
 import sys
 import time
 import webbrowser
+import logging
 from datetime import datetime
 from _thread import *
 from appJar import gui
+
+# logging config
+logging.basicConfig(filename="LOGS/SERVER-logging.log", level=logging.INFO)
 
 # define Colours
 colour = [
@@ -27,11 +31,11 @@ ApplicationName = 'DJ Request System'
 
 # create a GUI variable called app
 app = gui("DJ Request Server v0.4")
-app.setFont(12)
 app.setBg(colour[4])
 app.setResizable(canResize=False) # no fullscreen
-app.setPadding([10,5]) # 20 pixels padding outside the widget [X, Y]
-app.setInPadding([5,5]) # 5 pixels padding inside the widget [X, Y]
+app.setFont(12)
+app.setPadding([10,5])      # 20 pixels padding outside the widget [X, Y]
+app.setInPadding([5,5])     # 5 pixels padding inside the widget [X, Y]
 
 # declare Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -87,15 +91,15 @@ def threaded_client(conn):
             # recieved message console identifier
             print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" R "+"-> "+data.decode('utf-8'))
         except socket.error as e:
-            print(str(e))
+            logging.warning(str(e))
         try:
             # causes application failure on closing connection.
             if not data:
-                print("Client has disconnected.")
+                logging.warning("Client has disconnected.")
                 break
             conn.sendall(str.encode(reply))
         except socket.error as e:
-            print(str(e))
+            logging.warning(str(e))
     #Close connection
     conn.close()
 
@@ -103,10 +107,10 @@ while True:
     #Accept connection
     try:
        conn, addr = s.accept()
-       print('connected to: '+addr[0]+':'+str(addr[1]))
+       logging.info('connected to: '+addr[0]+':'+str(addr[1]))
        connStat = 1
     except socket.error as e:
-       print(str(e))
+       logging.warning(str(e))
 
     #Start client
     start_new_thread(threaded_client,(conn,))
@@ -119,7 +123,7 @@ while True:
             items = app.getListBox("list")
             if len(items)> 0:
                 app.removeListItem("list", items[0])
-                print(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" I "+"-> "+"Request Deleted")
+                logging.info(str(datetime.now().strftime("%H:%M:%S"))+" ->"+" I "+"-> "+"Request Deleted")
 
     # handle menu button events
     def mnuPress(button):
@@ -146,12 +150,12 @@ while True:
     # close connection
     def connClose():
         try:
-           print("Application has closed...")
+           logging.info("Application has closed...")
            connStat = 0
            s.close()
            app.stop()
         except socket.error as e:
-           print(str(e))
+           logging.warning(str(e))
 
     # preferences sub window
     def launch():
@@ -167,22 +171,37 @@ while True:
         
     # preferences button
     def preferencesbutton():
-        print("Preferences Button Pressed") # not implemented
+        logging.info("Preferences Button Pressed") # not implemented
         #app.infoBox("Coming Soon...", "Preferences not implemented.", parent=None)
         launch()
 
     # refresh button
     def refreshbutton():
-        print("Refreshing connection") # not implemented
+        logging.info("Refreshing connection") # not implemented
         app.infoBox("Coming Soon...", "Refresh Connection not implemented.", parent=None)
 
     # Update host details
     def updateHost(button):
         if button == "Update":
-            print("Updating host...") # not implemented
+            logging.info("Updating host...") # not implemented
         elif button == "Cancel":
             app.hideSubWindow("Preferences")
 
+    # font sizes
+    def fontSize(i):
+        logging.info("Font Size control")
+        app.setFont(12)
+        if i == 0:
+            app.setFont(10)
+        if i == 1:
+            app.setFont(11)
+        if i == 2:
+            app.setFont(12)
+        if i == 3:
+            app.setFont(13)
+        if i == 4:
+            app.setFont(14)
+            
     ## MAIN APPLICATION
     # app menu bar
     fileMenus = ["Close"]
@@ -190,6 +209,11 @@ while True:
     app.addMenuList("File", fileMenus, mnuPress)
     app.addMenuList("Help", helpMenus, mnuPress)
 
+    app.createMenu("Config")
+    app.addSubMenu("Config", "Font Size")
+    for i in range(5):
+        app.addMenuRadioButton("Font Size", "font", "1" + str(i), fontSize)
+    
     # toolbar
     tools = ["ABOUT", "REFRESH", "CLOSE", "PRINT", "PREFERENCES", "HELP"]
 
@@ -203,9 +227,7 @@ while True:
     app.setLabelFg("title", colour[1])
 
     # request textbox
-    #app.startLabelFrame("Requests")
     app.addListBox("list", ["apple", "orange", "pear", "kiwi"])
-    #app.stopLabelFrame()
 
     # status bar
     app.addStatusbar(fields=1)
@@ -250,4 +272,4 @@ while True:
     try:
         app.go()
     except GUIError: # GUI error catch
-        print("GUI Error")
+        logging.warning("GUI Error")
