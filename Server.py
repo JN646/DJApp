@@ -13,7 +13,7 @@ from _thread import *
 from appJar import gui
 
 # logging config
-logging.basicConfig(filename="LOGS/SERVER-logging.log", level=logging.WARNING,
+logging.basicConfig(filename="LOGS/" + str(time.strftime('%H_%M', time.gmtime(time.time()))) + "-CLIENT-logging.log", level=logging.WARNING,
                     format="%(asctime)s:%(levelname)s:%(message)s")
 
 # define Colours
@@ -32,7 +32,7 @@ port = 5555
 ApplicationName = 'DJ Request System'
 
 # create a GUI variable called app
-app = gui("DJ Request Server v0.4c")
+app = gui("DJ Request Server v0.5")
 app.setBg(colour[4])
 app.setResizable(canResize=False) # no fullscreen
 app.setFont(12)
@@ -46,7 +46,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.bind((host, port))
     # add intro text
-    print("      DJ Request Client v0.4c")
+    print("      DJ Request Client v0.5")
     print("") # new line
     print("*********************************")
     print("*    DJ Request Server - CLI    *")

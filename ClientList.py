@@ -11,7 +11,7 @@ import csv
 from appJar import gui
 
 # logging config
-logging.basicConfig(filename="LOGS/CLIENT-logging.log", level=logging.WARNING,
+logging.basicConfig(filename="LOGS/" + str(time.strftime('%H_%M', time.gmtime(time.time()))) + "-CLIENT-logging.log", level=logging.WARNING,
                     format="%(asctime)s:%(levelname)s:%(message)s")
 
 # define Colours
@@ -24,21 +24,22 @@ colour = [
     "RoyalBlue",
     "CrimsonRed"]
 
-# define Connection
+# define
 host = '127.0.0.1'
 port = 5555
+ApplicationName = 'DJ Request System'
 
 # create a GUI variable called app
-app = gui("DJ Request Client v0.4c")
+app = gui("DJ Request Client v0.5")
 app.setFont(12)
 app.setBg(colour[4])
 app.setResizable(canResize=False) # no fullscreen
 
-# oSpen and bind ports
+# open and bind ports
 s = socket.socket()
 
 # add intro text
-print("      DJ Request Client v0.4c")
+print("      DJ Request Client v0.5")
 print("") # new line
 print("*********************************")
 print("*    DJ Request Client - CLI    *")
@@ -64,8 +65,8 @@ def press(button):
 
             app.clearEntry("Request", callFunction=True) # clears the text box
         except socket.error as e:
-            app.warningBox("Error", "Error", parent=None)
-            logging.warning(str(e))
+            app.warningBox("Connection Error", "Can not send the request!", parent=None)
+            logging.warning(str(e)) # log the error
 
 # request song from list
 def Requestpress(button):
@@ -74,9 +75,8 @@ def Requestpress(button):
         if len(items)> 0:
             # send the selected item to the server.
             s.send(str(items[0]).encode())
-            app.setListItemBg("list", app.getListBox("list"), colour[3])
             logging.info("Sent:", app.getListBox("list")) # get name of selected item
-            app.removeListItem("list", items[0])
+            app.removeListItem("list", items[0]) # remove the item from the list.
         else:
             logging.info("No selected item.")
 
@@ -131,8 +131,7 @@ def startConn():
         app.warningBox("Connection Error", "Cannot find the host.", parent=None)
         logging.warning("Connection Failed! - Cannot find the host on: "+str(host)+":"+str(port))
         logging.warning(str(e))
-        app.stop() # stop the app
-        sys.exit() # close all windows and kill the process
+        closeConn()
 
 # close the connection and the application.
 def closeConn():
